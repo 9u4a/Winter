@@ -1,6 +1,8 @@
 package study.board.member.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,5 +26,12 @@ public class Member {
 
     @Column(length = 30, nullable = false, unique = true)
     private String member_email;
+
+    @Builder
+    public Member(String member_id, String member_name, String member_email) {
+        this.member_id = member_id;
+        this.member_name = member_name;
+        this.member_email = member_email;
+    }
 
 }
