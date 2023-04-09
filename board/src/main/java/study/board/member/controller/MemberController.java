@@ -2,11 +2,9 @@ package study.board.member.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import study.board.member.domain.Member;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import study.board.member.dto.MemberDTO;
 import study.board.member.service.MemberService;
 
@@ -18,8 +16,29 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping()
-    public long create(@RequestBody MemberDTO memberDTO) {
-        Member member = memberService.createMember(memberDTO);
-        return member.getId();
+    public ResponseEntity<MemberDTO> createMember(@RequestBody MemberDTO memberDTO) {
+        MemberDTO createMemberDTO = memberService.createMember(memberDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createMemberDTO);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MemberDTO> getMember(@PathVariable Long id) {
+        MemberDTO memberDTO = memberService.getMember(id);
+        if (memberDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(memberDTO);
+    }
+
+    @PutMapping("/{member_id}")
+    public ResponseEntity<MemberDTO> updateMember(@PathVariable String member_id, @RequestBody MemberDTO memberDTO) {
+        MemberDTO updateMemberDTO = memberService.updateMember(member_id, memberDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updateMemberDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMember(@PathVariable Long id) {
+        memberService.deleteMember(id);
+        return ResponseEntity.noContent().build();
     }
 }

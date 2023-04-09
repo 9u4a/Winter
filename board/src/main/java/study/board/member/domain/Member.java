@@ -1,15 +1,13 @@
 package study.board.member.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 //무분별한 객체 생성 방지
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
@@ -29,6 +27,14 @@ public class Member {
 
     @Builder
     public Member(String member_id, String member_name, String member_email) {
+        this.member_id = member_id;
+        this.member_name = member_name;
+        this.member_email = member_email;
+    }
+
+    @Builder
+    public Member(long id, String member_id, String member_name, String member_email) {
+        this.id = id;
         this.member_id = member_id;
         this.member_name = member_name;
         this.member_email = member_email;

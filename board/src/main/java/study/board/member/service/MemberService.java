@@ -1,10 +1,13 @@
 package study.board.member.service;
 
-import study.board.member.domain.Member;
 import study.board.member.dto.MemberDTO;
+import study.board.member.dto.UpdateMemberDTO;
 
 
 public interface MemberService {
 
-    Member createMember(MemberDTO memberDTO);
+    MemberDTO createMember(MemberDTO memberDTO);
+    MemberDTO getMember(Long id);
+    MemberDTO updateMember(String member_id, MemberDTO memberDTO);
+    void deleteMember(Long id);
 }
