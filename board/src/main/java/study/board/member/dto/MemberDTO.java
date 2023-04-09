@@ -11,6 +11,8 @@ import study.board.member.domain.Member;
 @Setter
 @NoArgsConstructor
 public class MemberDTO {
+
+
     private String member_id;
     private String member_name;
     private String member_email;

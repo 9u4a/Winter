@@ -30,9 +30,9 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(memberDTO);
     }
 
-    @PutMapping("/{member_id}")
-    public ResponseEntity<MemberDTO> updateMember(@PathVariable String member_id, @RequestBody MemberDTO memberDTO) {
-        MemberDTO updateMemberDTO = memberService.updateMember(member_id, memberDTO);
+    @PutMapping("/{id}")
+    public ResponseEntity<MemberDTO> updateMember(@PathVariable Long id, @RequestBody MemberDTO memberDTO) {
+        MemberDTO updateMemberDTO = memberService.updateMember(id, memberDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updateMemberDTO);
     }
 

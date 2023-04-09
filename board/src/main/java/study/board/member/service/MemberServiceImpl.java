@@ -1,7 +1,6 @@
 package study.board.member.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.member.domain.Member;
@@ -37,9 +36,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
-    public MemberDTO updateMember(String member_id, MemberDTO memberDTO) {
+    public MemberDTO updateMember(Long id, MemberDTO memberDTO) {
         Member member = memberDTO.toEntity();
-        member.setMember_id(member_id);
+        member.setId(id);
         Member savedMember = memberRepository.save(member);
         return new MemberDTO(savedMember);
     }
