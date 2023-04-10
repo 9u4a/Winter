@@ -1,15 +1,13 @@
 package study.board.member.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import study.board.member.domain.Member;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class MemberDTO {
 
 
@@ -18,11 +16,6 @@ public class MemberDTO {
     private String member_email;
 
 
-//    public MemberDTO(String member_id, String member_name, String member_email) {
-//        this.member_id = member_id;
-//        this.member_name = member_name;
-//        this.member_email = member_email;
-//    }
 
     public MemberDTO(Member member) {
         this.member_id = member.getMember_id();

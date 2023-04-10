@@ -1,7 +1,6 @@
 package study.board.member.service;
 
 import study.board.member.dto.MemberDTO;
-import study.board.member.dto.UpdateMemberDTO;
 
 
 public interface MemberService {

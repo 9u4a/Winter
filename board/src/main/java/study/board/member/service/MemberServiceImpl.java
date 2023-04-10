@@ -26,12 +26,8 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public MemberDTO getMember(Long id) {
-        Member member = memberRepository.findById(id)
-                .orElse(null);
-        if(member == null) {
-            return null;
-        }
-        return new MemberDTO(member);
+        return new MemberDTO(memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원")));
     }
 
     @Override

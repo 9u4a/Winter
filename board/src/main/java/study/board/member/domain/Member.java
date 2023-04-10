@@ -1,9 +1,11 @@
 package study.board.member.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import study.board.board.domain.Board;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +27,9 @@ public class Member {
     @Column(length = 30, nullable = false, unique = true)
     private String member_email;
 
+    @OneToMany(mappedBy ="member", cascade = CascadeType.ALL)
+    private List<Board> boards ;
+
     @Builder
     public Member(String member_id, String member_name, String member_email) {
         this.member_id = member_id;
@@ -32,12 +37,12 @@ public class Member {
         this.member_email = member_email;
     }
 
-    @Builder
-    public Member(long id, String member_id, String member_name, String member_email) {
-        this.id = id;
-        this.member_id = member_id;
-        this.member_name = member_name;
-        this.member_email = member_email;
-    }
+//    @Builder
+//    public Member(long id, String member_id, String member_name, String member_email) {
+//        this.id = id;
+//        this.member_id = member_id;
+//        this.member_name = member_name;
+//        this.member_email = member_email;
+//    }
 
 }
