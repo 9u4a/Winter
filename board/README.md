@@ -48,3 +48,15 @@
 <li>DTO > Entity or Entity > DTO 의 과정은 어디에서 진행 되어야 하는가? 장단점 찾아보기</li>
 </ul>
 </details>
+
+<details>
+<summary>23.04.11</summary>
+
+- [x] BoardController GET 구현
+
+
+<ul>
+<li>컬럼 이름도 문제였고 DTO에서 Member가 담겨 있어서 참조 순환이 반복되는 문제였음 DTO를 요청 응답 별로 구현해야함 (나중에)</li>
+<li>List 형식의 DTO를 Json 형식으로 res에 넣으려면? mapper사용?</li>
+</ul>
+</details>
