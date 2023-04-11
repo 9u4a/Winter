@@ -1,5 +1,6 @@
 package study.board.board.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import study.board.member.domain.Member;
 
@@ -21,6 +22,7 @@ public class Board {
     @Column(length = 2000, nullable = false)
     private String content;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

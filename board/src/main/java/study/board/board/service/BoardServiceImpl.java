@@ -5,9 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.board.domain.Board;
 import study.board.board.dto.BoardDTO;
+import study.board.board.dto.ResBoardDTO;
 import study.board.board.repository.BoardRepository;
-import study.board.member.domain.Member;
-import study.board.member.repository.MemberRepository;
 
 import java.util.List;
 
@@ -21,9 +20,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional
     public BoardDTO createBoard(BoardDTO boardDTO) {
-//        Member member = memberRepository.findById(boardDTO.getMember().getId());
-//                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원."));
-//        boardDTO.setMember(member);
         Board board = boardDTO.toEntity();
         Board savedBoard = boardRepository.save(board);
         return new BoardDTO(savedBoard);
@@ -37,16 +33,15 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     @Transactional
-    public BoardDTO getBoardById(Long id) {
-        return new BoardDTO(boardRepository.findById(id)
+    public ResBoardDTO getBoardById(Long id) {
+        return new ResBoardDTO(boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글.")));
     }
 
     @Override
     @Transactional
-    public BoardDTO getBoardByMemberId(Long id) {
-        return new BoardDTO(boardRepository.findByMemberId(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글.")));
+    public List<Board> getBoardByMemberId(Long member_id) {
+        return boardRepository.findByMember_id(member_id);
     }
 
     @Override

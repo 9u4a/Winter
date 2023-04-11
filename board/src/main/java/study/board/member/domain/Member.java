@@ -1,5 +1,6 @@
 package study.board.member.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import study.board.board.domain.Board;
 

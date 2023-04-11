@@ -4,8 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import study.board.board.domain.Board;
 import study.board.board.dto.BoardDTO;
+import study.board.board.dto.ResBoardDTO;
 import study.board.board.service.BoardService;
+
+
+import java.util.List;
 
 @RequestMapping("/board")
 @RestController
@@ -21,15 +26,15 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BoardDTO> getBoardById(@PathVariable Long id) {
-        BoardDTO boardDTO = boardservice.getBoardById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(boardDTO);
+    public ResponseEntity<ResBoardDTO> getBoardById(@PathVariable Long id) {
+        ResBoardDTO resBoardDTO = boardservice.getBoardById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(resBoardDTO);
     }
 
     @GetMapping("/myboards/{id}")
-    public ResponseEntity<BoardDTO> getBoardByMemberId(@PathVariable Long id) {
-        BoardDTO boardDTO = boardservice.getBoardByMemberId(id);
-        return ResponseEntity.status(HttpStatus.OK).body(boardDTO);
+    public ResponseEntity<List<Board>> getBoardByMemberId(@PathVariable Long id) {
+        List<Board> board = boardservice.getBoardByMemberId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(board);
     }
 
     @PutMapping("/{id}")
