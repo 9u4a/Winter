@@ -60,3 +60,18 @@
 <li>List 형식의 DTO를 Json 형식으로 res에 넣으려면? mapper사용?</li>
 </ul>
 </details>
+
+<details>
+<summary>23.04.16</summary>
+
+- [x] Member Entity User로 변경
+- [x] User 생성 시 password encode 추가
+
+
+<ul>
+<li>Spring에서 secret_key 사용해서 암호화 복호화 찾아보기</li>
+<li>Header 접근 방법 찾아보기</li>
+<li>Exception handler 구현 필요</li>
+<li>Validation handler 구현 필요</li>
+</ul>
+</details>
