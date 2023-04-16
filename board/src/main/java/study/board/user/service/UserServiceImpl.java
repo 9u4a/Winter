@@ -1,9 +1,11 @@
 package study.board.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.user.domain.User;
+import study.board.user.dto.CreateUserDTO;
 import study.board.user.dto.UserDTO;
 import study.board.user.repository.UserRepository;
 
@@ -13,13 +15,14 @@ import study.board.user.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
+    private final BCryptPasswordEncoder encoder;
 
     @Override
     @Transactional
-    public UserDTO createUser(UserDTO userDTO) {
-        User user = userDTO.toEntity();
-        User savedUser = userRepository.save(user);
+    public UserDTO createUser(CreateUserDTO userDTO) {
+        //validation 구현 필요
+        userDTO.encodePassword(encoder);
+        User savedUser = userRepository.save(userDTO.toEntity());
         return new UserDTO(savedUser);
     }
 

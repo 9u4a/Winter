@@ -1,5 +1,6 @@
 package study.board.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import study.board.board.domain.Board;
 
@@ -27,14 +28,18 @@ public class User {
     @Column(length = 30, nullable = false, unique = true)
     private String email;
 
+    @JsonIgnore
+    private String password;
+
 //    @OneToMany(mappedBy ="user", cascade = CascadeType.ALL)
 //    private List<Board> boards ;
 
     @Builder
-    public User(String uid, String name, String email) {
+    public User(String uid, String name, String email, String password) {
         this.uid = uid;
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
 

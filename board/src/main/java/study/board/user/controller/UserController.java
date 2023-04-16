@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import study.board.user.dto.CreateUserDTO;
 import study.board.user.dto.UserDTO;
 import study.board.user.service.UserService;
 
@@ -16,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping()
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO createUserDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserDTO createUserDTO) {
         UserDTO userDTO = userService.createUser(createUserDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
     }
