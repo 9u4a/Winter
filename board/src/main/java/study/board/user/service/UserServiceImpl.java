@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.user.domain.User;
 import study.board.user.dto.CreateUserDTO;
+import study.board.user.dto.LoginUserDTO;
 import study.board.user.dto.UserDTO;
 import study.board.user.repository.UserRepository;
 
@@ -46,5 +47,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public String loginUser(LoginUserDTO loginUserDTO) {
+        User user = userRepository.findByUid(loginUserDTO.getUid())
+                .orElseThrow(() -> new RuntimeException("유저 존재 안함"));
+
+        if (!encoder.matches(user.getPassword(), loginUserDTO.getPassword())) {
+            throw new RuntimeException("패스워드 틀림");
+        }
+        return null;
     }
 }
