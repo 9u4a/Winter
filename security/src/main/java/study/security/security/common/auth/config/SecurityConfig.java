@@ -23,11 +23,16 @@ public class SecurityConfig {
     //구현 필요
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((authz) -> authz
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(withDefaults());
+//        http.csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/user/**").authenticated()
+//                .anyRequest().permitAll()
+//
+//                .and()
+//                .oauth2Login()
+//                .defaultSuccessUrl("/")
+//                .userInfoEndpoint()
+//                .userService(CustomOauthUserService);
         return http.build();
     }
 

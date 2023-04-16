@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity{
 
@@ -18,12 +19,16 @@ public class User extends BaseTimeEntity{
     private String email;
 
     @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private String image;
 
 
     @Builder
-    public User(String email, String image){
+    public User(String email, String password, String image){
         this.email = email;
+        this.password = password;
         this.image = image;
     }
 }
