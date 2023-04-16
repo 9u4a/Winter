@@ -2,7 +2,7 @@ package study.board.board.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import study.board.member.domain.Member;
+import study.board.user.domain.User;
 
 import javax.persistence.*;
 
@@ -24,14 +24,14 @@ public class Board {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Builder
-    public Board(String title, String content, Member member) {
+    public Board(String title, String content, User user) {
         this.title = title;
         this.content = content;
-        this.member = member;
+        this.user = user;
     }
 
 }

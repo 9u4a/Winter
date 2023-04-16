@@ -11,7 +11,7 @@ public interface BoardService {
     BoardDTO createBoard(BoardDTO boardDTO);
     List<Board> getBoardAll();
     ResBoardDTO getBoardById(Long id);
-    List<Board> getBoardByMemberId(Long id);
+    List<Board> getBoardByUserId(Long id);
     BoardDTO updateBoard(Long id, BoardDTO boardDTO);
     void deleteBoard(Long id);
 }

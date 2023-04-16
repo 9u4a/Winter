@@ -9,6 +9,7 @@ import study.board.board.dto.ResBoardDTO;
 import study.board.board.repository.BoardRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,10 +27,19 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    @Transactional
     public List<Board> getBoardAll() {
-        return boardRepository.findAll();
+        return null;
     }
+    // 구현 필요
+//    @Override
+//    @Transactional
+//    public List<ResBoardDTO> getBoardAll() {
+//        return boardRepository.findAll()
+//                .stream()
+//                .map(this::)
+//                .collect(Collectors.toList());
+//    }
+
 
     @Override
     @Transactional
@@ -40,8 +50,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     @Transactional
-    public List<Board> getBoardByMemberId(Long member_id) {
-        return boardRepository.findByMember_id(member_id);
+    public List<Board> getBoardByUserId(Long uid) {
+        return boardRepository.findByUser_id(uid);
     }
 
     @Override
@@ -57,5 +67,10 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public void deleteBoard(Long id) {
         boardRepository.deleteById(id);
+    }
+
+
+    private BoardDTO buildBoardDTO(Board board) {
+        return new BoardDTO(board);
     }
 }

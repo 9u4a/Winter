@@ -1,7 +1,7 @@
-package study.board.member.dto;
+package study.board.user.dto;
 
 import lombok.*;
-import study.board.member.domain.User;
+import study.board.user.domain.User;
 
 
 @Getter

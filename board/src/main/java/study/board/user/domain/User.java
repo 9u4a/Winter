@@ -1,4 +1,4 @@
-package study.board.member.domain;
+package study.board.user.domain;
 
 import lombok.*;
 import study.board.board.domain.Board;
@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="users")
 @Getter
 @Setter
 //무분별한 객체 생성 방지
@@ -26,8 +27,8 @@ public class User {
     @Column(length = 30, nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy ="member", cascade = CascadeType.ALL)
-    private List<Board> boards ;
+//    @OneToMany(mappedBy ="user", cascade = CascadeType.ALL)
+//    private List<Board> boards ;
 
     @Builder
     public User(String uid, String name, String email) {

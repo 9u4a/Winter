@@ -2,7 +2,7 @@ package study.board.board.dto;
 
 import lombok.*;
 import study.board.board.domain.Board;
-import study.board.member.domain.Member;
+import study.board.user.domain.User;
 
 @Getter
 @Setter
@@ -12,18 +12,18 @@ public class BoardDTO {
 
     private String title;
     private String content;
-    private Member member;
+    private User user;
 
     public BoardDTO(Board board){
         this.title = board.getTitle();
         this.content = board.getContent();
-        this.member = board.getMember();
+        this.user = board.getUser();
     }
     public Board toEntity() {
         return Board.builder()
                 .title(title)
                 .content(content)
-                .member(member)
+                .user(user)
                 .build();
 
     }

@@ -1,14 +1,14 @@
-package study.board.member.controller;
+package study.board.user.controller;
 
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import study.board.member.dto.UserDTO;
-import study.board.member.service.UserService;
+import study.board.user.dto.UserDTO;
+import study.board.user.service.UserService;
 
-@RequestMapping("/member")
+@RequestMapping("/user")
 @RestController
 @RequiredArgsConstructor
 public class UserController {

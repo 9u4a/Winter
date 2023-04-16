@@ -1,6 +1,6 @@
-package study.board.member.service;
+package study.board.user.service;
 
-import study.board.member.dto.UserDTO;
+import study.board.user.dto.UserDTO;
 
 
 public interface UserService {

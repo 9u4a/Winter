@@ -2,7 +2,6 @@ package study.board.board.dto;
 
 import lombok.*;
 import study.board.board.domain.Board;
-import study.board.member.domain.Member;
 
 @Getter
 @Setter

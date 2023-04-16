@@ -32,8 +32,8 @@ public class BoardController {
     }
 
     @GetMapping("/myboards/{id}")
-    public ResponseEntity<List<Board>> getBoardByMemberId(@PathVariable Long id) {
-        List<Board> board = boardservice.getBoardByMemberId(id);
+    public ResponseEntity<List<Board>> getBoardByUserId(@PathVariable Long id) {
+        List<Board> board = boardservice.getBoardByUserId(id);
         return ResponseEntity.status(HttpStatus.OK).body(board);
     }
 

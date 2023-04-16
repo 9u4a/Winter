@@ -1,11 +1,11 @@
-package study.board.member.service;
+package study.board.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.board.member.domain.User;
-import study.board.member.dto.UserDTO;
-import study.board.member.repository.UserRepository;
+import study.board.user.domain.User;
+import study.board.user.dto.UserDTO;
+import study.board.user.repository.UserRepository;
 
 @Service
 @Transactional(readOnly = true)
