@@ -32,7 +32,7 @@ public class JwtFilter extends OncePerRequestFilter {
         final String auth = request.getHeader(HttpHeaders.AUTHORIZATION);
         log.info("auth:{}", auth);
 
-        if(auth == null || auth.startsWith("Bearer ")){
+        if(auth == null){
             log.error("auth 없음");
             filterChain.doFilter(request, response);
             return;
@@ -46,7 +46,8 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        String email = "";
+        String email = JwtUtil.getUserEmail(token);
+        log.info("email: {}", email);
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(email, null, List.of(new SimpleGrantedAuthority("USERS")));

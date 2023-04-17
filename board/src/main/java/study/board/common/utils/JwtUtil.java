@@ -29,6 +29,10 @@ public class JwtUtil {
     }
 
     public static boolean isExpired(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token).getBody().getExpiration().before(new Date());
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getExpiration().before(new Date());
+    }
+
+    public static String getUserEmail(String token) {
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().get("sub").toString();
     }
 }

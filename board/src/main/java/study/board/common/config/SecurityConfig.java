@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .cors().and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-
+                .antMatchers("/user/token").authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //jwt

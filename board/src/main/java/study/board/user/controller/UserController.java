@@ -9,7 +9,7 @@ import study.board.user.dto.CreateUserDTO;
 import study.board.user.dto.LoginUserDTO;
 import study.board.user.dto.UserDTO;
 import study.board.user.service.UserService;
-
+import org.springframework.security.core.Authentication;
 @RequestMapping("/user")
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +33,11 @@ public class UserController {
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         UserDTO userDTO = userService.getUser(id);
         return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+    }
+    //TokenTEST
+    @GetMapping("/token")
+    public ResponseEntity<String> getUserByToken(Authentication authentication) {
+        return ResponseEntity.ok().body(authentication.getName());
     }
 
     @PutMapping("/{id}")
