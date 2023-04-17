@@ -1,5 +1,7 @@
 package study.board.user.service;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,9 @@ import study.board.user.dto.CreateUserDTO;
 import study.board.user.dto.LoginUserDTO;
 import study.board.user.dto.UserDTO;
 import study.board.user.repository.UserRepository;
+import study.board.common.utils.JwtUtil;
+
+import java.security.Key;
 
 @Service
 @Transactional(readOnly = true)
@@ -54,9 +59,10 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUid(loginUserDTO.getUid())
                 .orElseThrow(() -> new RuntimeException("유저 존재 안함"));
 
-        if (!encoder.matches(user.getPassword(), loginUserDTO.getPassword())) {
+        if (!encoder.matches(loginUserDTO.getPassword(), user.getPassword())) {
             throw new RuntimeException("패스워드 틀림");
         }
-        return null;
+
+        return JwtUtil.createToken(user.getEmail());
     }
 }
