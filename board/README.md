@@ -75,3 +75,16 @@
 <li>Validation handler 구현 필요</li>
 </ul>
 </details>
+
+<details>
+<summary>23.04.17</summary>
+
+- [x] jwt를 이용한 인증인가 구현
+
+
+<ul>
+<li>Access,Refresh 토큰 구현? or OAuth2.0 소셜로그인 구현</li>
+<li>User Role 설정</li>
+<li>jjwt secret key 따로 설정해서 사용하기 (환경변수)</li>
+</ul>
+</details>
