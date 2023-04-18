@@ -2,10 +2,8 @@ package study.board.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import study.board.board.domain.Board;
-
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 @Table(name="users")

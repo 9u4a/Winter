@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    //임시
     @Override
     public String loginUser(LoginUserDTO loginUserDTO) {
         User user = userRepository.findByUid(loginUserDTO.getUid())

@@ -7,15 +7,25 @@ import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import study.board.user.domain.User;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserDTO {
 
+    @NotBlank(message = "아이디 필요")
+    @Pattern(regexp = "^[a-zA-Z0-9]{2,15}$")
     private String uid;
+    @NotBlank(message = "이름 필요")
+    @Pattern(regexp = "^[가-힣]{2,10}$")
     private String name;
+    @Email
     private String email;
+    @NotBlank(message = "비밀번호 필요")
     private String password;
 
     public CreateUserDTO(User user) {
