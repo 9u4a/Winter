@@ -1,7 +1,6 @@
 package study.security.security.common.auth.security.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -29,12 +28,14 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+
         OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
         log.info("user: {}", oAuth2User.getAttributes());
+
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
-        // get unique field
+
         String userNameAttributeName = userRequest.getClientRegistration()
                 .getProviderDetails()
                 .getUserInfoEndpoint()
@@ -44,7 +45,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2Attribute oAuth2Attribute =
                 OAuth2Attribute.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        User user = saveOrUpdate(oAuth2Attribute);
+        User user = saveOrUpdate(oAuth2Attribute, registrationId);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
@@ -53,10 +54,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         );
     }
 
-    private User saveOrUpdate(OAuth2Attribute attribute) {
+    private User saveOrUpdate(OAuth2Attribute attribute, String registrationId) {
         User user = userRepository.findByEmail(attribute.getEmail())
                 .map(entity -> entity.update(attribute.getName(), attribute.getImage()))
-                .orElse(attribute.toEntity());
+                .orElse(attribute.toEntity(registrationId));
 
         return userRepository.save(user);
     }

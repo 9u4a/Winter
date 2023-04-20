@@ -10,12 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import study.security.security.common.auth.security.service.CustomOAuth2UserService;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -37,8 +35,6 @@ public class SecurityConfig {
                 .anyRequest().permitAll()
 
                 .and()
-                //구현 필요
-//                .addFilterBefore(new JwtFilter(), OAuth2LoginAuthenticationFilter.class)
                 .oauth2Login()
 //                .successHandler(CustomOAuth2SuccessHandler)
 //                .failureHandler(CustomOAuth2FailureHandler)

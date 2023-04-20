@@ -7,7 +7,6 @@ import lombok.ToString;
 import study.security.security.common.auth.domain.Role;
 import study.security.security.common.auth.domain.User;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -23,8 +22,8 @@ public class OAuth2Attribute {
     public static OAuth2Attribute of(String provider, String attributeKey, Map<String, Object> attributes) {
         return switch (provider) {
             case "google" -> ofGoogle(attributeKey, attributes);
-            case "kakao" -> ofKakao("id", attributes);
-            case "naver" -> ofNaver("id", attributes);
+            case "kakao" -> ofKakao(attributeKey, attributes);
+            case "naver" -> ofNaver(attributeKey, attributes);
             default -> throw new RuntimeException();
         };
     }
@@ -33,7 +32,7 @@ public class OAuth2Attribute {
         return OAuth2Attribute.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .image((String) attributes.get("image"))
+                .image((String) attributes.get("picture"))
                 .attributes(attributes)
                 .attributeKey(attributeKey)
                 .build();
@@ -77,10 +76,12 @@ public class OAuth2Attribute {
 //    }
 
 
-    public User toEntity() {
+    public User toEntity(String registrationId) {
         return User.builder()
                 .name(name)
                 .email(email)
+                .image(image)
+                .social(registrationId)
                 .role(Role.USER)
                 .build();
     }
