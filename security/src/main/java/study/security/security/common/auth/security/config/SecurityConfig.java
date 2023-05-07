@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import study.security.security.common.auth.repository.UserRepository;
+import study.security.security.common.auth.security.jwt.filter.JwtFilter;
+import study.security.security.common.auth.security.jwt.service.JwtService;
 import study.security.security.common.auth.security.service.CustomOAuth2UserService;
 
 
@@ -23,6 +26,8 @@ import study.security.security.common.auth.security.service.CustomOAuth2UserServ
 public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final JwtService jwtService;
+    private final UserRepository userRepository;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,7 +36,7 @@ public class SecurityConfig {
                 .and()
                 .httpBasic().disable()
                 .formLogin().disable()
-                .addFilterBefore(JwtFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/user/**").authenticated()
                 .anyRequest().permitAll()
@@ -45,9 +50,14 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // 구현 필요
+    private JwtFilter jwtFilter() {
+        return new JwtFilter(jwtService, userRepository);
+    }
+
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers();
     }
+
 }
