@@ -81,7 +81,7 @@ public class OAuth2Attribute {
                 .name(name)
                 .email(email)
                 .image(image)
-                .social(registrationId)
+                .socialType(registrationId)
                 .role(Role.USER)
                 .build();
     }

@@ -1,9 +1,7 @@
 package study.security.security.common.auth.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import study.security.security.common.auth.domain.Role;
 import study.security.security.common.auth.domain.User;
 
 
@@ -11,6 +9,7 @@ import study.security.security.common.auth.domain.User;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserDTO {
 
     private String name;
@@ -30,6 +29,7 @@ public class UserDTO {
                 .email(email)
                 .password(password)
                 .image(image)
+                .role(Role.USER)
                 .build();
     }
 

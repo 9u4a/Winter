@@ -45,7 +45,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2Attribute oAuth2Attribute =
                 OAuth2Attribute.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        User user = saveOrUpdate(oAuth2Attribute, registrationId);
+        saveOrUpdate(oAuth2Attribute, registrationId);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
@@ -54,11 +54,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         );
     }
 
-    private User saveOrUpdate(OAuth2Attribute attribute, String registrationId) {
+    private void saveOrUpdate(OAuth2Attribute attribute, String registrationId) {
         User user = userRepository.findByEmail(attribute.getEmail())
                 .map(entity -> entity.update(attribute.getName(), attribute.getImage()))
                 .orElse(attribute.toEntity(registrationId));
-
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 }

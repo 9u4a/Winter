@@ -1,4 +1,4 @@
-package study.security.security.common.auth.security.service.service;
+package study.security.security.common.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
