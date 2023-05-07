@@ -20,7 +20,12 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String auth = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token;
+        String provider;
+        if(auth != null && auth.startsWith("Bearer ")){
+            token = auth.substring(7);
 
-        if(auth != null)
+            if()
+        }
     }
 }

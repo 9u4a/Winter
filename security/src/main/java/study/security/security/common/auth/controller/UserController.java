@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import study.security.security.common.auth.dto.UserDTO;
-import study.security.security.common.auth.service.UserService;
+import study.security.security.common.auth.security.service.service.UserService;
 
 @RestController
 @RequiredArgsConstructor

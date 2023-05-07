@@ -1,6 +1,7 @@
-package study.security.security.common.auth.service;
+package study.security.security.common.auth.security.service.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.security.security.common.auth.domain.User;
@@ -13,6 +14,7 @@ import study.security.security.common.auth.repository.UserRepository;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public UserDTO createUser(UserDTO userDTO) {
@@ -22,6 +24,7 @@ public class UserService {
                 });
 
         User user = userDTO.toEntity();
+        user.passwordEncode(passwordEncoder);
         return new UserDTO(userRepository.save(user));
     }
 }

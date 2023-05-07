@@ -30,6 +30,8 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .httpBasic().disable()
+                .formLogin().disable()
+                .addFilterBefore(JwtFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/user/**").authenticated()
                 .anyRequest().permitAll()
@@ -40,7 +42,6 @@ public class SecurityConfig {
 //                .failureHandler(CustomOAuth2FailureHandler)
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService);
-//        return http.addFilterBefore(JwtFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

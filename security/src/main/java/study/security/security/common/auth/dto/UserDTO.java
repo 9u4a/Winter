@@ -12,17 +12,21 @@ import study.security.security.common.auth.domain.User;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
+
+    private String name;
     private String email;
     private String password;
     private String image;
 
     public UserDTO(User user) {
+        this.name = user.getName();
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.image = user.getImage();
     }
     public User toEntity() {
         return User.builder()
+                .name(name)
                 .email(email)
                 .password(password)
                 .image(image)

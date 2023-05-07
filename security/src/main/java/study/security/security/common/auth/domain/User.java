@@ -1,14 +1,15 @@
 package study.security.security.common.auth.domain;
 
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Table(name = "users")
 public class User extends BaseTimeEntity{
 
@@ -28,24 +29,25 @@ public class User extends BaseTimeEntity{
     @Column(nullable = false)
     private String image;
 
-    private String social;
+    @Enumerated(EnumType.STRING)
+    private String socialType;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Builder
-    public User(String email, String name, String password, String image,String social, Role role){
-        this.name = name;
-        this.email = email;
-        this.social = social;
-        this.password = password;
-        this.image = image;
-        this.role = role;
-    }
+    private String refreshToken;
 
     public User update(String name, String image){
         this.name = name;
         this.image = image;
         return this;
+    }
+
+    public void authorizeUser(){
+        this.role = Role.USER;
+    }
+
+    public void passwordEncode(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(this.password);
     }
 }
