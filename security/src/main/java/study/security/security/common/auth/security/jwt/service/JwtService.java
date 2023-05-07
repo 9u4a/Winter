@@ -1,14 +1,12 @@
 package study.security.security.common.auth.security.jwt.service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import study.security.security.common.auth.repository.UserRepository;
 
 import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +20,7 @@ import java.util.Optional;
 @Slf4j
 public class JwtService {
 
+    private final UserRepository userRepository;
     private static final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long accessPeriod = 1000L * 60L * 60L;
     private final long refreshPeriod = 1000L * 60L * 60L * 24L * 14;
@@ -71,20 +70,55 @@ public class JwtService {
                 .map(refreshToken -> refreshToken.replace(BEARER, ""));
     }
 
+    public boolean validAccessToken(String accessToken) {
+        try {
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(accessToken);
+            return claims.getBody()
+                    .getExpiration()
+                    .after(new Date());
+        } catch(ExpiredJwtException e) {
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    public boolean validRefreshToken(String refreshToken) {
+        try {
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(refreshToken);
+            return claims.getBody()
+                    .getExpiration()
+                    .after(new Date());
+        } catch (Exception e){
+            log.error(e.getMessage());
+            return false;
+        }
+    }
+
+
     public Claims getClaims(String token) {
         try{
           return Jwts.parserBuilder()
                   .setSigningKey(key)
                   .build()
-                  .parseClaimsJwt(token)
+                  .parseClaimsJws(token)
                   .getBody();
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
     }
-    public String getEmailByToken(String token){
-        return getClaims(token).get("email").toString();
+    public Optional<String> getEmailByToken(String token){
+        return Optional.ofNullable(getClaims(token).get("email").toString());
     }
 
-
+    public  void updateRefreshToken(String email, String refreshToken){
+        userRepository.findByEmail(email)
+                .ifPresent(user -> user.updateRefreshToken(refreshToken));
+    }
 }
